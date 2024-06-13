@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - Udemy Clone</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-dark text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="h4">Udemy Clone</h1>
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a href="{% url 'homepage' %}" class="nav-link text-white">Home</a></li>
+                    <li class="nav-item"><a href="{% url 'mylist' %}" class="nav-link text-white">My List</a></li>
+                    <li class="nav-item"><a href="/admin/" class="nav-link text-white">Admin Page</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-white">Logout</a></li>
+                        <li class="nav-item nav-link text-white">{{ user.username }}</li>
+                    {% else %}
+                        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link text-white">Login</a></li>
+                        <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link text-white">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class="container mt-3">
+            <form method="get" action="{% url 'search' %}" class="form-inline">
+                <input type="text" name="q" value="{{ query }}" class="form-control mr-2" placeholder="Search for courses...">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </header>
+    <main class="container mt-5">
+        <section>
+            <h2 class="mb-4">Available Courses</h2>
+            <div class="row">
+                {% for course in courses %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ course.name }}</h3>
+                                <video width="100%" controls="false" class="mb-3">
+                                    <source src="{{ course.video.url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <p class="card-text">{{ course.description }}</p>
+                                <p class="card-text"><strong>Price:</strong> ${{ course.price }}</p>
+                                {% if user.is_authenticated %}
+                                    <form method="get" action="{% url 'pay' %}">
+                                        <input type="hidden" name="course_id" value="{{ course.id }}">
+                                        <button type="submit" class="btn btn-success">Pay</button>
+                                    </form>
+                                {% else %}
+                                    <p><a href="{% url 'login' %}" class="btn btn-primary">Login to Purchase</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section>
+            <h2 class="mb-4">My List</h2>
+            <div class="row">
+                {% for course in purchased_courses %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ course.name }}</h3>
+                                <video width="100%" controls class="mb-3">
+                                    <source src="{{ course.video.url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <p class="card-text">{{ course.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer class="bg-dark text-white p-5 mt-5 text-center">
+        <p>&copy; 2024 Udemy Clone. All rights reserved.</p>
+        <p>Your go-to platform for online learning.</p>
+        <p>Explore thousands of courses in various subjects.</p>
+        <p>Start your learning journey today!</p>
+    </footer>
+</body>
+</html>

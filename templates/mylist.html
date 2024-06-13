@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My List - Udemy Clone</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/mylist.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-dark text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="h4">Udemy Clone</h1>
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a href="{% url 'homepage' %}" class="nav-link text-white">Home</a></li>
+                    <li class="nav-item"><a href="{% url 'mylist' %}" class="nav-link text-white">My List</a></li>
+                    <li class="nav-item"><a href="/admin/" class="nav-link text-white">Admin Page</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-white">Logout</a></li>
+                        <li class="nav-item nav-link text-white">{{ user.username }}</li>
+                    {% else %}
+                        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link text-white">Login</a></li>
+                        <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link text-white">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container mt-5">
+        <section>
+            <h2 class="mb-4">My Purchased Courses</h2>
+            <div class="row">
+                {% for course in purchased_courses %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ course.name }}</h3>
+                                <video width="100%" controls class="mb-3">
+                                    <source src="{{ course.video.url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <p class="card-text">{{ course.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer class="bg-dark text-white p-5 mt-5 text-center">
+        <p>&copy; 2024 Udemy Clone. All rights reserved.</p>
+        <p>"Learning never exhausts the mind." - Leonardo da Vinci</p>
+        <p>"Education is the passport to the future, for tomorrow belongs to those who prepare for it today." - Malcolm X</p>
+        <p>Explore more courses and enhance your skills with us!</p>
+    </footer>
+</body>
+</html>
