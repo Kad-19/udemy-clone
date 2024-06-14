@@ -19,13 +19,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+import user
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/admin/', admin.site.urls),
     path('', include('file.urls')),
     path('', include('payment.urls')),
     path('', include('user.urls')),
     path('', include('django.contrib.auth.urls')),
-    # path('accounts/', include('django.contrib.auth.urls')),  # Add this line
-    # path('videos/<path:path>/', views.serve_video, name='serve_video'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

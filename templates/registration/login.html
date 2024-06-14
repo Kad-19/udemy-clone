@@ -6,8 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="{% static 'login.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'home.css' %}"> {% endcomment %}
 </head>
 <body>
+    {% comment %} <nav>
+        <ul class="nav">
+            <li class="nav-item"><a href="{% url 'homepage' %}" class="nav-link text-white">Home</a></li>
+            <li class="nav-item"><a href="{% url 'mylist' %}" class="nav-link text-white">My List</a></li>
+            <li class="nav-item"><a href="/admin/" class="nav-link text-white">Admin Page</a></li>
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-white">Logout</a></li>
+                <li class="nav-item nav-link text-white">{{ user.username }}</li>
+            {% else %}
+                <li class="nav-item"><a href="{% url 'login' %}" class="nav-link text-white">Login</a></li>
+                <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link text-white">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav> {% endcomment %}
     <div class="container">
         <h1>Sign in</h1>
         <form method="post">
@@ -22,15 +37,10 @@
             </div>
             <div class="form-group">
                 <button class="next-button" type="submit">Next</button>
-                <label for="remember-me">
-                    <input type="checkbox" id="remember-me" name="remember-me">
-                    Remember me
-                </label>
             </div>
             {% comment %} <a href="/password_reset">Forgot password</a> {% endcomment %}
         </form>
         <a class="create"  href="/signup">Create account</a>
-        
     </div>
 </body>
 </html>
