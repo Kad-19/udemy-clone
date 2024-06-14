@@ -28,17 +28,16 @@ This project is a Django-based web application that emulates core functionalitie
 ### The Landing Page
 ![Landing Page](images/landing.png)
 
-## Installation Commands
+## Installation
 
-```bash
-git clone https://github.com/Kad-19/udemy-clone.git
-cd udemy-clone
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+    -git clone https://github.com/Kad-19/udemy-clone.git
+    -cd udemy-clone
+    -python -m venv venv
+    -venv\Scripts\activate
+    -pip install -r requirements.txt
+    -python manage.py migrate
+    -python manage.py createsuperuser
+    -python manage.py runserver
 
 
 ## Usage
