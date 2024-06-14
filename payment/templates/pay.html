@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Form</title>
+    <title>Payment</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'pay.css' %}">
 </head>
 <body>
-    {% include "message.html" %}
-    <h1>Payment Form</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="first_name">First Name:</label>
+    <header>
+        <h1>Payment Page</h1>
+    </header>
+    <main>
+        <form method="post">
+            {% csrf_token %}
+            <label for="first_name">First Name:</label>
         <input type="text" id="first_name" name="first_name" required><br><br>
         
         <label for="last_name">Last Name:</label>
@@ -21,11 +25,8 @@
         
         <label for="amount">Amount:</label>
         <input type="number" id="amount" name="amount"  required><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <button type="submit">Pay Now</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Confirm Purchase</button>
+        </form>
+    </main>
 </body>
 </html>

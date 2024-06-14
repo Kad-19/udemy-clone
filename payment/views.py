@@ -21,8 +21,9 @@ def pay(request):
         # Proceed with payment processing
         ret = payment(first_name, last_name, phone, amount, email)
         if ret['status'] == 'success':
-            PurchasedCourse.objects.create(user=request.user, course=course)
-            return redirect('chapa') 
+            checkout_url = ret['data']['checkout_url']
+       
+            return HttpResponse(loader.render_to_string('new_tab.html', {'checkout_url': checkout_url})) 
         else:
             error_message = ret['message']
             messages.error(request, error_message)
